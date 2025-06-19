@@ -1,0 +1,265 @@
+/* 
+.section {
+    padding-top: 50px;
+    margin-top: 0px;
+    
+    height: 100vh;
+   
+    margin: auto;
+    border-radius: 40px;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+.leftsection {
+
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+  
+    border-radius: 20px;
+    color: rgb(243, 230, 232);
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+
+}
+
+h1 {
+    font-size: 1.9rem;
+    color: black;
+}
+
+.blue {
+    font-size: 2.5rem;
+    color: blue;
+}
+
+.left_content {
+    margin-top: 20px;
+    padding: 20px; 
+    background-color:rgba(180, 197, 250, 0.298);
+    height: 400px;
+    width: 90%;
+    color: rgba(44, 43, 44, 0.996);
+    border-bottom: 3px solid rgb(44, 155, 233);
+    border-top: 3px solid rgb(44, 155, 233);
+
+    border-radius: 35px;
+    font-size: 1.5rem;
+
+}
+
+
+
+
+
+
+
+.rightsection {
+ 
+    background-image: url("D:\gas\Optimal Gas Pipeline\Optimal Gas Pipeline\frontend\src\images\last.gif");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    margin-top: 30px;
+    height: 60vh;
+
+    width: 50%;
+
+
+
+} 
+
+
+
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* Default styles for large screens */
+.section {
+    padding-top: 50px;
+    margin-top: 0px;
+    height: 100vh;
+    margin: auto;
+    border-radius: 40px;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px; /* added gap to ensure spacing between sections */
+}
+
+.leftsection {
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    border-radius: 20px;
+    color: rgb(243, 230, 232);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1 {
+    font-size: 1.9rem;
+    color: black;
+}
+
+.blue {
+    font-size: 2.5rem;
+    color: blue;
+}
+
+.left_content {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(180, 197, 250, 0.298);
+    height: 400px;
+    width: 90%;
+    color: rgba(44, 43, 44, 0.996);
+    border-bottom: 3px solid rgb(44, 155, 233);
+    border-top: 3px solid rgb(44, 155, 233);
+    border-radius: 35px;
+    font-size: 1.5rem;
+}
+
+.rightsection {
+    background-image: url("D:/gas/Optimal Gas Pipeline/Optimal Gas Pipeline/frontend/src/images/last.gif");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 30px;
+    height: 60vh;
+    width: 50%;
+}
+
+/* Media Queries for responsiveness */
+
+/* Tablet to Desktop (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .leftsection, .rightsection {
+        width: 80%;
+    }
+
+    .left_content {
+        font-size: 1.3rem;
+        height: auto;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .blue {
+        font-size: 2rem;
+    }
+}
+
+/* Tablet (max-width: 992px) */
+@media (max-width: 992px) {
+    .leftsection, .rightsection {
+        width: 90%;
+    }
+
+    .section {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .blue {
+        font-size: 1.8rem;
+    }
+
+    .left_content {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .section {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .leftsection {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .rightsection {
+        width: 100%;
+        height: 50vh; /* Adjust height on mobile */
+        margin-top: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .blue {
+        font-size: 1.6rem;
+    }
+
+    .left_content {
+        font-size: 1rem;
+    }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .section {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .leftsection {
+        width: 100%;
+        padding: 8px;
+    }
+
+    .rightsection {
+        width: 100%;
+        height: 40vh; /* Reduce the height even more on smaller screens */
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .blue {
+        font-size: 1.5rem;
+    }
+
+    .left_content {
+        font-size: 0.9rem;
+    }
+}
+

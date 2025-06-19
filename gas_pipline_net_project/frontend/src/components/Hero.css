@@ -1,0 +1,124 @@
+
+.Hero_section {
+    height: 100vh;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .heroleft {
+    width: 50%;
+    background-image: url("D:/gas/Optimal Gas Pipeline/Optimal Gas Pipeline/frontend/src/images/Map.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the container */
+   
+    max-height: 90vh; /* Limits the height on larger screens */
+  }
+  
+  /* Hero Right Section - Content Styles */
+  .heroright {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+    width: 50%;
+  }
+  
+  /* Hero Title - Styling */
+  .hero_title {
+    width: 40%;
+    height: 70px;
+    font-weight: 500;
+    font-size: 1.9rem;
+    text-align: center;
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  
+  /* Hero Content - Styling */
+  .hero_content {
+    padding: 20px;
+    width: 90%;
+    height: 400px;
+    font-size: 1.5rem;
+    border-bottom: 3px solid rgb(44, 155, 233);
+    border-top: 3px solid rgb(44, 155, 233);
+    border-radius: 35px;
+    background-color: rgba(180, 197, 250, 0.298);
+    color: rgba(44, 43, 44, 0.996);
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  
+  /* Responsive Media Queries */
+  
+  /* Tablet (max-width: 992px) */
+  @media (max-width: 992px) {
+    .Hero_section {
+      flex-direction: column; /* Stack the left and right sections */
+    }
+  
+    .heroleft {
+      width: 100%;
+      height: 40vh; 
+      max-height: 40vh;
+    }
+  
+    .heroright {
+      width: 100%;
+      align-items: flex-start; 
+    }
+  
+    .hero_title {
+      font-size: 1.5rem;
+    }
+  
+    .hero_content {
+      height: 300px; 
+    }
+  }
+  
+
+  @media (max-width: 768px) {
+    .heroleft {
+      height: 30vh; 
+      max-height: 30vh;
+    }
+  
+    .heroright {
+      width: 100%; 
+      align-items: center; 
+    }
+  
+    .hero_title {
+      font-size: 1.3rem; 
+    }
+  
+    .hero_content {
+      height: 250px; 
+      font-size: 1.2rem; 
+    }
+  }
+  
+  /* Small Mobile (max-width: 480px) */
+  @media (max-width: 480px) {
+    .heroleft {
+      height: 20vh;
+      max-height: 20vh;
+    }
+  
+    .hero_title {
+      font-size: 1.2rem; 
+    }
+  
+    .hero_content {
+      height: 200px; 
+      font-size: 1.1rem;
+    }
+  }
+  
