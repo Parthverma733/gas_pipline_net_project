@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import "./Grid.css";
 import axios from "axios";
@@ -44,9 +35,11 @@ const Grid = ({ m = 10, n = 10 }) => {
     const [optimizePathData, setOptimizePathData] = useState([]);
 
 
-    const [selectedMap, setSelectedMap] = useState("Map1");
+    const [selectedMap, setSelectedMap] = useState("None");
 
-      // Effect to animate the path construction after fetching path data
+    const mapNameToId = { Map1: 1, Map2: 2, Map3: 3 };
+
+    // Effect to animate the path construction after fetching path data
     useEffect(() => {
         if (Array.isArray(pathData) && pathData.length > 0) {
             pathData.forEach(([row, col], i) => {
@@ -57,7 +50,7 @@ const Grid = ({ m = 10, n = 10 }) => {
         }
     }, [pathData]);
 
-      // Effect to animate the optimized path after fetching optimize path data
+    // Effect to animate the optimized path after fetching optimize path data
     useEffect(() => {
         if (Array.isArray(optimizePathData) && optimizePathData.length > 0) {
             optimizePathData.forEach(([row, col], i) => {
@@ -69,20 +62,16 @@ const Grid = ({ m = 10, n = 10 }) => {
     }, [optimizePathData]);
 
     const fetchMap = async (mapName) => {
+        const map_id = mapNameToId[mapName];
         try {
-        //    const res = await axios.get(`http://127.0.0.1:8000/map/${mapName}`);
-            const { gas, house, wall } = res.data;
-
-
-            
-      // Reset grid and node lists
+            const res = await axios.get(`http://127.0.0.1:8000/maps/${map_id}`);
+            const { gasStations, houses } = res.data;
+            // Reset grid and node lists
             const newGrid = initializeGrid(m, n);
             const gasList = [];
             const houseList = [];
-            const wallList = [];
-
             // Place gas stations on grid
-            gas.forEach(([x, y]) => {
+            gasStations.forEach(([x, y]) => {
                 newGrid[x][y] = {
                     ...newGrid[x][y],
                     name: "G",
@@ -91,9 +80,8 @@ const Grid = ({ m = 10, n = 10 }) => {
                 };
                 gasList.push({ x, y });
             });
-
-              // Place houses on grid
-            house.forEach(([x, y]) => {
+            // Place houses on grid
+            houses.forEach(([x, y]) => {
                 newGrid[x][y] = {
                     ...newGrid[x][y],
                     name: "H",
@@ -102,24 +90,15 @@ const Grid = ({ m = 10, n = 10 }) => {
                 };
                 houseList.push({ x, y });
             });
-
-            // Place walls on grid
-            wall.forEach(([x, y]) => {
-                newGrid[x][y] = {
-                    ...newGrid[x][y],
-                    name: "W",
-                    color: "rgb(20, 20, 22)",
-                    isWall: true,
-                };
-                wallList.push({ x, y });
-            });
-
-              // Update states
-            setGrid(newGrid);
-            setGasNodes(gasList);
-            setHouseNodes(houseList);
-            setWallNodes(wallList);
+            setGrid([...newGrid]);
+            setGasNodes([...gasList]);
+            setHouseNodes([...houseList]);
+            setWallNodes([]); // Walls are not stored in DB
         } catch (err) {
+            setGrid(initializeGrid(m, n));
+            setGasNodes([]);
+            setHouseNodes([]);
+            setWallNodes([]);
             console.error("Error fetching map data:", err);
         }
     };
@@ -166,7 +145,7 @@ const Grid = ({ m = 10, n = 10 }) => {
         setAllowedGasZone(allowed);
     };
 
-      // Set current mode to place Houses with green color and 'H' name
+    // Set current mode to place Houses with green color and 'H' name
     const setCellAsHouse = () => {
         setColorAndName(["rgb(5, 254, 63)", "H"]);
         setRestrictedGasZone([]);
@@ -174,7 +153,7 @@ const Grid = ({ m = 10, n = 10 }) => {
     };
 
     
-  // Set current mode to place Walls with dark color and 'W' name
+    // Set current mode to place Walls with dark color and 'W' name
     const setCellAsWall = () => {
         setColorAndName(["rgb(20, 20, 22)", "W"]);
         setRestrictedGasZone([]);
@@ -182,7 +161,7 @@ const Grid = ({ m = 10, n = 10 }) => {
     };
 
     
-  // Function to color path cells red as part of path visualization animation
+    // Function to color path cells red as part of path visualization animation
     const constructPath = (row, col) => {
         setGrid(prevGrid => {
             const newGrid = prevGrid.map(rowArr => [...rowArr]);
@@ -209,7 +188,7 @@ const Grid = ({ m = 10, n = 10 }) => {
 
 
     
-  // Clears the grid and resets all states to initial values
+    // Clears the grid and resets all states to initial values
     const clearGrid = () => {
         setGrid(initializeGrid(m, n));
         setColorAndName([]);
@@ -226,11 +205,11 @@ const Grid = ({ m = 10, n = 10 }) => {
     // Render appropriate image inside each cell based on cell type
     const renderCellContent = (color, name) => {
         if (name === "G") {
-            return <img src="src/images/GAS.png" alt="Gas" className="cell-image" />;
+            return <img src="src/assets/images/GAS.png" alt="Gas" className="cell-image" />;
         } else if (name === "H") {
-            return <img src="src/images/house.jpg" alt="House" className="cell-image" />;
+            return <img src="src/assets/images/house.jpg" alt="House" className="cell-image" />;
         } else if (name === "W") {
-            return <img src="src/images/wall.png" alt="Wall" className="cell-image" />;
+            return <img src="src/assets/images/wall.png" alt="Wall" className="cell-image" />;
         } else {
             return null;
         }
@@ -289,17 +268,33 @@ const Grid = ({ m = 10, n = 10 }) => {
     };
 
 
-      // Send current grid data to backend API for path calculati
+    // Send current grid data to backend API for path calculati
     const sendDataToAPI = async () => {
+        const map_id = mapNameToId[selectedMap];
+        const mapPayload = {
+            gasStations: gasNodes.map(({ x, y }) => [x, y]),
+            houses: houseNodes.map(({ x, y }) => [x, y]),
+        };
+        try {
+            // Save to MongoDB (only updates if changed)
+            const res = await axios.post(`http://127.0.0.1:8000/maps/${map_id}`, mapPayload, {
+                headers: { "Content-Type": "application/json" },
+            });
+            if (res.data.updated) {
+                alert("Map data saved/updated!");
+            } else {
+                alert("No changes to map data.");
+            }
+        } catch (err) {
+            console.error("Error saving map data:", err);
+        }
+        // Also send to /post for pathfinding
         const payload = {
             houseNodes: houseNodes.map(({ x, y }) => [x, y]),
             gasNodes: gasNodes.map(({ x, y }) => [x, y]),
             wallNodes: wallNodes.map(({ x, y }) => [x, y]),
             grid_size: [m, n],
         };
-
-        console.log("Sending Data:", payload);
-
         try {
             const res = await axios.post("http://127.0.0.1:8000/post", payload, {
                 headers: { "Content-Type": "application/json" },
@@ -308,7 +303,6 @@ const Grid = ({ m = 10, n = 10 }) => {
         } catch (err) {
             console.error("Error posting data:", err);
         }
-
         try {
             const res = await axios.get("http://127.0.0.1:8000/show");
             setPathData(res.data.path);
@@ -348,8 +342,13 @@ const Grid = ({ m = 10, n = 10 }) => {
                 <div className="rightgridButton">
                         <select value={selectedMap} onChange={(e) => {
                         setSelectedMap(e.target.value);
-                        fetchMap(e.target.value);
+                        if (e.target.value !== "None") {
+                            fetchMap(e.target.value);
+                        } else {
+                            clearGrid();
+                        }
                     }}>
+                        <option value="None">None</option>
                         <option value="Map1">Map 1</option>
                         <option value="Map2">Map 2</option>
                         <option value="Map3">Map 3</option>
