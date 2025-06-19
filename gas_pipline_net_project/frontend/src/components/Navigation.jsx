@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import './Navigation.css';
+import '../assets/images/logoimages.jpeg';
 
 const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,7 +44,7 @@ const Navigation = () => {
   return (
     <nav className="navbar">
       <div className="logo">
-        <img src="/src/images/logoimages.jpeg" alt="Logo" className="logo-image" />
+        <img src="..\src\assets\images\logoimages.jpeg" alt="Logo" className="logo-image" />
         <h1 className="logo-text"><span className="bluevoilet">Gas</span> Pipeline Optimizer</h1>
       </div>
       <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>

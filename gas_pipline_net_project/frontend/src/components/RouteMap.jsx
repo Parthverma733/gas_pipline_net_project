@@ -122,8 +122,11 @@ const RouteMap = () => {
   };
 
   return (
-    <>
-      <div className="map-component">
+    <> 
+  
+      <div className="map_container">
+<div className="map-component"  id='MAP'>
+        
         <MapContainer center={[40.7128, -74.0060]} zoom={25} style={{ height: '90vh', width: '100%' }} className='map'>
           <TileLayer
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
@@ -156,8 +159,10 @@ const RouteMap = () => {
 
           <div className="select-coor" >
             <h3>MAP VEIW</h3>
-            <button onClick={() => setFlag(1)} className='station-btn'>Set Station</button>
+            <div className="select-coorbtn">
+              <button onClick={() => setFlag(1)} className='station-btn'>Set Station</button>
             <button onClick={() => setFlag(2)} className='house-btn'>Set House</button>
+            </div>
           </div>
           <div className="set-cost">
             <h3>Set Cost For Setting Pipeline</h3>
@@ -200,6 +205,9 @@ const RouteMap = () => {
           </div>
 
         </div>
+
+      </div>
+
 
       </div>
     </>

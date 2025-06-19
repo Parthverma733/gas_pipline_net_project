@@ -2,7 +2,6 @@
 
 
 import Navigation from '../components/Navigation';
-import RouteMap from '../components/RouteMap'
 import './Home.css';
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
@@ -14,6 +13,7 @@ import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import Grid from '../components/Grid';
 import Head from '../components/Head';
+import RouteMap from '../components/RouteMap'
 
 
 gsap.registerPlugin(ScrollTrigger);

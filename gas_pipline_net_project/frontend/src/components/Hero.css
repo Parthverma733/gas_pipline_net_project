@@ -11,7 +11,7 @@
   
   .heroleft {
     width: 50%;
-    background-image: url("D:/gas/Optimal Gas Pipeline/Optimal Gas Pipeline/frontend/src/images/Map.gif");
+    background-image: url('../assets/images/Map.gif');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover; /* Ensures the image covers the container */
